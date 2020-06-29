@@ -152,7 +152,7 @@ export default {
         owners_name: 'felix',
         bike_description: 'red bmx bike for a teen',
         type: 'sports BMX',
-        theft_date: null,
+        theft_date: '2020-06-29T19:16:35.420Z',
         theft_location: 'bazar',
         theft_description:
           'i chained the bike to the pole but it was cut and the bike taken',
