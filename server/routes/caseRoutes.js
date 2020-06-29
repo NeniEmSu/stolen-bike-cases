@@ -7,4 +7,5 @@ router.post('/', casesController.addNewCase)
 
 router.get('/', casesController.getAllCases)
 
+router.put('/:caseId', casesController.resolveCase)
 module.exports = router

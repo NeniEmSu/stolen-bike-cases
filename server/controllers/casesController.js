@@ -7,7 +7,7 @@ async function findAvailableOfficer(caseData) {
   })
 
   if (availableOfficer) {
-    caseData._officerId = availableOfficer.id
+    caseData._officerId = availableOfficer._id
     caseData.status = 'In Progress'
   }
 
@@ -19,6 +19,27 @@ async function findAvailableOfficer(caseData) {
   }
 
   return createdCase
+}
+
+async function assignCase(officerId) {
+  const unassignedCase = await Case.findOne({ status: 'pending' }).sort({
+    createdAt: 1,
+  })
+  if (unassignedCase) {
+    await Officer.updateOne(
+      {
+        id: officerId,
+      },
+      {
+        _caseId: unassignedCase.id,
+      }
+    )
+
+    unassignedCase.officerId = officerId
+    unassignedCase.status = 'In Progress'
+    return await unassignedCase.save()
+  }
+  return false
 }
 
 exports.addNewCase = async (req, res, next) => {
@@ -52,6 +73,43 @@ exports.getAllCases = async (req, res) => {
     res.status(200).json({
       type: 'success',
       cases,
+    })
+  } catch (error) {
+    res.status(500).json({ type: 'error', error })
+  }
+}
+
+exports.resolveCase = async (req, res, next) => {
+  try {
+    const id = req.params.caseId
+    const caseObj = await Case.findOne({ _id: id })
+    if (!caseObj) {
+      throw new Error('Case not found')
+    }
+    if (caseObj.status === 'pending') {
+      throw new Error('Case is not yet assigned')
+    }
+    if (caseObj.status === 'Found') {
+      throw new Error('Case already resolved')
+    }
+
+    caseObj.status = 'Found'
+    const resolvedCase = await caseObj.save()
+    await Officer.update(
+      {
+        _id: caseObj._officerId,
+      },
+      {
+        caseId: null,
+      }
+    )
+    const caseAssigned = await assignCase(caseObj.officerId)
+
+    res.status(201).json({
+      type: 'success',
+      message: 'The bike has been found and case resolved!',
+      resolvedCase,
+      caseAssigned,
     })
   } catch (error) {
     res.status(500).json({ type: 'error', error })

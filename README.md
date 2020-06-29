@@ -94,6 +94,7 @@ Backend
 - [ ] Backend Testing
 - [ ] Inprove error/response handling
 - [ ] Refactor and move services to seperate folder
+- [x] Find and assign the oldest case to new officers
 - [x] Create service for auto assignment
 - [x] Create officers routes, model and controllers
 - [ ] Req.body validation with @hapi/joi
