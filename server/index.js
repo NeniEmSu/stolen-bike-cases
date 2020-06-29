@@ -10,6 +10,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const config = require('../nuxt.config.js')
 const caseRoutes = require('./routes/caseRoutes')
+const officersRoutes = require('./routes/officersRoutes')
 require('dotenv').config()
 
 // Import and Set Nuxt.js options
@@ -66,6 +67,7 @@ async function start() {
   app.use('/static', express.static(path.join(__dirname, 'static')))
 
   app.use('/api/cases', caseRoutes)
+  app.use('/api/officers', officersRoutes)
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
