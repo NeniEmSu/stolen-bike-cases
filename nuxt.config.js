@@ -2,7 +2,7 @@ module.exports = {
   mode: 'universal',
 
   head: {
-    title: 'Tab Tracker' || process.env.npm_package_name,
+    title: 'Stolen Bike Cases' || process.env.npm_package_name,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
