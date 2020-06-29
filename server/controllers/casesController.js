@@ -1,4 +1,25 @@
 const Case = require('../models/casesModel')
+const Officer = require('../models/officersModel')
+
+async function findAvailableOfficer(caseData) {
+  const availableOfficer = await Officer.findOne({ _caseId: null }).sort({
+    updatedAt: -1,
+  })
+
+  if (availableOfficer) {
+    caseData._officerId = availableOfficer.id
+    caseData.status = 'In Progress'
+  }
+
+  const createdCase = await caseData.save()
+
+  if (availableOfficer) {
+    availableOfficer._caseId = createdCase._id
+    await availableOfficer.save()
+  }
+
+  return createdCase
+}
 
 exports.addNewCase = async (req, res, next) => {
   try {
@@ -12,7 +33,8 @@ exports.addNewCase = async (req, res, next) => {
       status: 'pending',
       _officerId: null,
     })
-    const newCase = await caseData.save()
+
+    const newCase = await findAvailableOfficer(caseData)
 
     res.status(201).json({
       type: 'success',
