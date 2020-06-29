@@ -15,8 +15,8 @@ Github, Bitbucket...).
 ## Product Requirements
 
 - [x] Bike owners can report a stolen bike.
-- [ ] New stolen bike cases should be automatically assigned to any free police officer.  
-- [ ] A police officer can only handle one stolen bike case at a time.
+- [x] New stolen bike cases should be automatically assigned to any free police officer.  
+- [x] A police officer can only handle one stolen bike case at a time.
 - [ ] When the Police find a bike, the case is marked as resolved and the responsible police officer becomes available to take a new stolen bike case.
 - [ ] The system should be able to assign unassigned stolen bike cases automatically when a police officer becomes available.
 
