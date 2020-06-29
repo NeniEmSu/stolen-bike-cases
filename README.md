@@ -92,9 +92,10 @@ PORT=3000
 Backend
 
 - [ ] Backend Testing
-- [ ] Inprove error handling responses
-- [ ] Create service for auto assignment
-- [ ] Create officers routes, model and controllers
+- [ ] Inprove error/response handling
+- [ ] Refactor and move services to seperate folder
+- [x] Create service for auto assignment
+- [x] Create officers routes, model and controllers
 - [ ] Req.body validation with @hapi/joi
 - [x] Create cases routes, model and controllers
 - [x] Set up express api, cors, proxy settings and basics
