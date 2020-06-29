@@ -73,7 +73,11 @@ export default {
       try {
         this.addLoading = true
         await this.$axios
-          .$post('/api/officers', this.officerDetails, config)
+          .$post(
+            `${process.env.BASE_URL}/api/officers`,
+            this.officerDetails,
+            config
+          )
           .then((response) => {
             this.$swal('Success', `${response.message}`, 'success')
             this.getOfficers()
@@ -92,7 +96,10 @@ export default {
       }
       this.loading = true
       try {
-        const data = await this.$axios.$get('/api/officers', config)
+        const data = await this.$axios.$get(
+          `${process.env.BASE_URL}/api/officers`,
+          config
+        )
         const response = await data.officers
         this.officers = response
         this.loading = false

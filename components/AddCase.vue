@@ -181,7 +181,7 @@ export default {
       try {
         this.addLoading = true
         await this.$axios
-          .$post('/api/cases', this.caseDetails, config)
+          .$post(`${process.env.BASE_URL}/api/cases`, this.caseDetails, config)
           .then((response) => {
             this.$swal(
               'Success',

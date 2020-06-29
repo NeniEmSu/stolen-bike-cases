@@ -72,7 +72,10 @@ export default {
       }
       this.loading = true
       try {
-        const data = await this.$axios.$get('/api/cases', config)
+        const data = await this.$axios.$get(
+          `${process.env.BASE_URL}/api/cases`,
+          config
+        )
         const response = await data.cases
         this.cases = response
         this.loading = false
@@ -89,14 +92,16 @@ export default {
       }
       try {
         this.addLoading = true
-        await this.$axios.$put(`/api/cases/${id}`, config).then((response) => {
-          this.$swal(
-            'Success',
-            `Case set to resolved, the officer will be assigned another case shortly.`,
-            'success'
-          )
-          this.getCases()
-        })
+        await this.$axios
+          .$put(`${process.env.BASE_URL}/api/cases/${id}`, config)
+          .then((response) => {
+            this.$swal(
+              'Success',
+              `Case set to resolved, the officer will be assigned another case shortly.`,
+              'success'
+            )
+            this.getCases()
+          })
       } catch (error) {
         this.$swal('Error', `Something Went wrong, ${error}`, 'error')
       }
