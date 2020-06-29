@@ -194,17 +194,6 @@ export default {
       }
       this.addLoading = false
     },
-    async addTodo() {
-      if (!this.title)
-        return this.$swal(
-          'Be advised!',
-          'Todo text is required to add a todo!',
-          'warning'
-        )
-      await this.$store.dispatch('todos/addTodo', this.title)
-      this.title = null
-      this.$v.$reset()
-    },
   },
 }
 </script>
