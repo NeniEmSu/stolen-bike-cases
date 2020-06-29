@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="mt-5">
     <h1>Officers</h1>
     <div v-for="officer in officers" :key="officer._id">
-      <p>{{ officer.name }}</p>
-      <p>{{ officer._caseId }}</p>
+      <h5>{{ officer.name }}</h5>
+      <p>Case Id: {{ officer._caseId }}</p>
     </div>
 
     <form class="row" @submit.prevent="addOfficer">

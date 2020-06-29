@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="mt-5">
     <div>
       <h1>
         Stolen Bike Cases
