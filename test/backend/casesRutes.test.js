@@ -23,3 +23,14 @@ describe('Post Endpoints', () => {
     expect(res.body).toHaveProperty('newCase')
   })
 })
+
+describe('Get Endpoints', () => {
+  it('Should get from /api/cases list of cases and retun status of 200', async () => {
+    const res = await request(app)
+      .get('/api/cases')
+      .set('Content-Type', 'application/json')
+      .expect('Content-Type', /json/)
+    expect(res.status).toEqual(200)
+    expect(res.body).toHaveProperty('cases')
+  })
+})
