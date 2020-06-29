@@ -17,7 +17,7 @@ exports.addNewOfficer = async (req, res, next) => {
   }
 }
 
-exports.getAllCases = async (req, res) => {
+exports.getAllOfficers = async (req, res) => {
   try {
     const officers = await Officer.find().sort({ createdAt: -1 })
     res.status(200).json({
