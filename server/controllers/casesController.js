@@ -35,7 +35,7 @@ async function assignCase(officerId) {
       }
     )
 
-    unassignedCase.officerId = officerId
+    unassignedCase._officerId = officerId
     unassignedCase.status = 'In Progress'
     return await unassignedCase.save()
   }
