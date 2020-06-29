@@ -14,7 +14,7 @@ exports.addNewCase = async (req, res, next) => {
     })
     const newCase = await caseData.save()
 
-    res.status(200).json({
+    res.status(201).json({
       type: 'success',
       message: 'Case Added successfully!',
       newCase,
