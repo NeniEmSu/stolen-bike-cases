@@ -1,10 +1,27 @@
 <template>
   <div class="mt-5">
     <h1>Officers</h1>
-    <div v-for="officer in officers" :key="officer._id">
-      <h5>{{ officer.name }}</h5>
-      <p>Case Id: {{ officer._caseId }}</p>
-    </div>
+    <template v-if="loading">
+      <div>
+        <h4>
+          Loading...
+        </h4>
+      </div>
+    </template>
+    <template v-else-if="!loading && officers.length < 1">
+      <div>
+        <h4>No officers yet consider adding one.</h4>
+      </div>
+    </template>
+    <template v-else>
+      <div v-for="officer in officers" :key="officer._id">
+        <h5>{{ officer.name }}</h5>
+        <p v-if="officer._caseId">
+          Is on the Case with the Id: {{ officer._caseId }}
+        </p>
+        <p v-else>Officer is available</p>
+      </div>
+    </template>
 
     <form class="row" @submit.prevent="addOfficer">
       <b-form-group label="Officers Name:" label-for="name" class="col-12">

@@ -28,10 +28,10 @@ async function assignCase(officerId) {
   if (unassignedCase) {
     await Officer.updateOne(
       {
-        id: officerId,
+        _id: officerId,
       },
       {
-        _caseId: unassignedCase.id,
+        _caseId: unassignedCase._id,
       }
     )
 
@@ -100,12 +100,12 @@ exports.resolveCase = async (req, res, next) => {
         _id: caseObj._officerId,
       },
       {
-        caseId: null,
+        _caseId: null,
       }
     )
-    const caseAssigned = await assignCase(caseObj.officerId)
+    const caseAssigned = await assignCase(caseObj._officerId)
 
-    res.status(201).json({
+    res.status(200).json({
       type: 'success',
       message: 'The bike has been found and case resolved!',
       resolvedCase,
