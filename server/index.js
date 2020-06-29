@@ -9,6 +9,7 @@ const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const bodyParser = require('body-parser')
 const config = require('../nuxt.config.js')
+const caseRoutes = require('./routes/caseRoutes')
 require('dotenv').config()
 
 // Import and Set Nuxt.js options
@@ -63,6 +64,8 @@ async function start() {
   app.use(morgan('dev')) // configire morgan
 
   app.use('/static', express.static(path.join(__dirname, 'static')))
+
+  app.use('/api/cases', caseRoutes)
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
