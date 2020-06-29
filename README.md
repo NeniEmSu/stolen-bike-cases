@@ -112,8 +112,8 @@ Frontend
 - [ ] animated transition
 - [ ] state management init
 - [ ] add readme documentation for all major directories
-- [ ] setup readme for documentation
-- [ ] Project initialization
+- [X] setup readme for documentation
+- [X] Project initialization
 
 ## Deployment Setup
 
