@@ -18,7 +18,7 @@ Github, Bitbucket...).
 - [x] New stolen bike cases should be automatically assigned to any free police officer.  
 - [x] A police officer can only handle one stolen bike case at a time.
 - [x] When the Police find a bike, the case is marked as resolved and the responsible police officer becomes available to take a new stolen bike case.
-- [ ] The system should be able to assign unassigned stolen bike cases automatically when a police officer becomes available.
+- [x] The system should be able to assign unassigned stolen bike cases automatically when a police officer becomes available.
 
 ## Your Mission
 
@@ -92,7 +92,7 @@ PORT=3000
 Backend
 
 - [ ] Backend Testing
-- [ ] Inprove error/response handling
+- [x] Inprove error/response handling
 - [ ] Refactor and move services to seperate folder
 - [x] Find and assign the oldest case to new officers
 - [x] Create service for auto assignment
