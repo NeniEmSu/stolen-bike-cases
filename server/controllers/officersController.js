@@ -4,6 +4,7 @@ exports.addNewOfficer = async (req, res, next) => {
   try {
     const officersData = new Officer({
       name: req.body.name,
+      _caseId: null,
     })
     const newOfficer = await officersData.save()
 
