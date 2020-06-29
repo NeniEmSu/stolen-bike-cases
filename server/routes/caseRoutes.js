@@ -5,4 +5,6 @@ const casesController = require('../controllers/casesController')
 
 router.post('/', casesController.addNewCase)
 
+router.get('/', casesController.getAllCases)
+
 module.exports = router
