@@ -14,7 +14,7 @@ Github, Bitbucket...).
 
 ## Product Requirements
 
-- [ ] Bike owners can report a stolen bike.
+- [x] Bike owners can report a stolen bike.
 - [ ] New stolen bike cases should be automatically assigned to any free police officer.  
 - [ ] A police officer can only handle one stolen bike case at a time.
 - [ ] When the Police find a bike, the case is marked as resolved and the responsible police officer becomes available to take a new stolen bike case.
@@ -96,8 +96,8 @@ Backend
 - [ ] Create service for auto assignment
 - [ ] Create officers routes, model and controllers
 - [ ] Req.body validation with @hapi/joi
-- [ ] Create cases routes, model and controllers
-- [ ] Set up express api, cors, proxy settings and basics
+- [x] Create cases routes, model and controllers
+- [x] Set up express api, cors, proxy settings and basics
 
 Frontend
 
@@ -110,7 +110,7 @@ Frontend
 - [ ] UX/UI logic refactor
 - [ ] add Skeleton loaders
 - [ ] animated transition
-- [ ] state management init
+- [x] state management init
 - [ ] add readme documentation for all major directories
 - [X] setup readme for documentation
 - [X] Project initialization
