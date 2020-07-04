@@ -3,9 +3,12 @@ const router = express.Router()
 
 const casesController = require('../controllers/casesController')
 
-router.post('/', casesController.addNewCase)
-
 router.get('/', casesController.getAllCases)
 
+router.post('/', casesController.addNewCase)
+
 router.put('/:caseId', casesController.resolveCase)
+
+router.delete('/:caseId', casesController.deleteCase)
+
 module.exports = router

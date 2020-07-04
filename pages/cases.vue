@@ -28,7 +28,7 @@
           Mr/Mrs {{ item.owners_name }} missing bike is being investigated.
         </h4>
         <h4 v-if="item.status === 'Found'">
-          Mr/Mrs {{ item.owners_name }} missing bike has been foound.
+          Mr/Mrs {{ item.owners_name }} missing bike has been found.
         </h4>
         <p>
           {{ item.status }} <span v-if="item.status !== 'pending'">by</span>

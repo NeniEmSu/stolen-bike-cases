@@ -115,3 +115,33 @@ exports.resolveCase = async (req, res, next) => {
     res.status(500).json({ type: 'error', error })
   }
 }
+
+exports.deleteCase = async (req, res) => {
+  try {
+    const id = req.params.caseId
+    const caseObj = await Case.findOne({ _id: id })
+    if (caseObj.status === 'pending' || caseObj.status === 'Found') {
+      await Case.deleteOne({ _id: id })
+      return res.status(200).json({
+        type: 'success',
+        message:
+          caseObj.status === 'pending'
+            ? 'Previously unassigned Case successfully removed.'
+            : 'Previously resolved Case successfully removed.',
+      })
+    }
+    const officerObj = await Officer.findOne({ _id: caseObj._officerId })
+    officerObj._caseId = null
+    const availableOfficer = await officerObj.save()
+    await Case.deleteOne({ _id: id })
+    const reasigningOfficer = await assignCase(availableOfficer._id)
+    res.status(200).json({
+      type: 'success',
+      message: reasigningOfficer
+        ? 'Case successfully removed & Officer has been assigned to a new case.'
+        : 'Case successfully removed & Officer will be assigned a case once one is added.',
+    })
+  } catch (error) {
+    res.status(500).json({ type: 'error', error })
+  }
+}
