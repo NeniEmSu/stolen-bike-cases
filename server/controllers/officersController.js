@@ -51,3 +51,55 @@ exports.getAllOfficers = async (req, res) => {
     res.status(500).json({ type: 'error', error })
   }
 }
+
+exports.deleteOfficer = async (req, res) => {
+  try {
+    const id = req.params.officerId
+    const officer = await Officer.findOne({ _id: id })
+    if (!officer._caseId) {
+      await Officer.deleteOne({ _id: id })
+      return res
+        .status(200)
+        .json({ type: 'success', message: 'Officer successfully removed.' })
+    }
+
+    const caseObj = await Case.findOne({ _id: officer._caseId })
+    caseObj.status = 'pending'
+    caseObj._officerId = null
+    const unresolvedCase = await caseObj.save()
+    await Officer.deleteOne({ _id: id })
+    const editedCase = await findAvailableOfficer(unresolvedCase)
+
+    res.status(200).json({
+      type: 'success',
+      message: editedCase.reponseMessage,
+    })
+  } catch (error) {
+    res.status(500).json({ type: 'error', error })
+  }
+}
+
+async function findAvailableOfficer(caseData) {
+  const availableOfficer = await Officer.findOne({ _caseId: null }).sort({
+    updatedAt: -1,
+  })
+
+  let reponseMessage =
+    'The Officer was successfully removed and his unresolved case will be reasigned once and officer is availble.'
+
+  if (availableOfficer) {
+    caseData._officerId = availableOfficer._id
+    caseData.status = 'In Progress'
+    reponseMessage =
+      'The Officer was successfully removed and his unresolved case has been reasigned to an availble officer.'
+  }
+
+  const updatedCase = await caseData.save()
+
+  if (availableOfficer) {
+    availableOfficer._caseId = updatedCase._id
+    await availableOfficer.save()
+  }
+
+  return { updatedCase, reponseMessage }
+}

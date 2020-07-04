@@ -7,4 +7,5 @@ router.post('/', officersController.addNewOfficer)
 
 router.get('/', officersController.getAllOfficers)
 
+router.delete('/:officerId', officersController.deleteOfficer)
 module.exports = router
