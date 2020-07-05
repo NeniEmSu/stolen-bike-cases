@@ -67,6 +67,19 @@ exports.addNewCase = async (req, res, next) => {
   }
 }
 
+exports.getCase = async (req, res) => {
+  try {
+    const id = req.params.caseId
+    const singleCase = await Case.findOne({ _id: id })
+    res.status(200).json({
+      type: 'success',
+      singleCase,
+    })
+  } catch (error) {
+    res.status(500).json({ type: 'error', error })
+  }
+}
+
 exports.getAllCases = async (req, res) => {
   try {
     const cases = await Case.find().sort({ createdAt: -1 })
