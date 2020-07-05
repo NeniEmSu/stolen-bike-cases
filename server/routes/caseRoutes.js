@@ -5,6 +5,8 @@ const casesController = require('../controllers/casesController')
 
 router.get('/', casesController.getAllCases)
 
+router.get('/:caseId', casesController.getCase)
+
 router.post('/', casesController.addNewCase)
 
 router.put('/:caseId', casesController.resolveCase)
