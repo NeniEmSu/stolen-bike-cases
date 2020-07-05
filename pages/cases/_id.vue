@@ -1,0 +1,78 @@
+<template>
+  <div>
+    <div v-if="caseLoading">
+      <h4>Loading...</h4>
+    </div>
+    <div v-if="!caseLoading" class="my-5">
+      <h1 v-if="singleCase.status === 'pending'">
+        Mr/Mrs {{ singleCase.owners_name }} has reported a missing bike!
+      </h1>
+      <h1 v-if="singleCase.status === 'In Progress'">
+        Mr/Mrs {{ singleCase.owners_name }} missing bike is being investigated.
+      </h1>
+      <h1 v-if="singleCase.status === 'Found'">
+        Mr/Mrs {{ singleCase.owners_name }} missing bike has been found.
+      </h1>
+      <p>
+        {{ singleCase.status }}
+        <span v-if="singleCase.status !== 'pending'">by</span>
+        <span v-if="singleCase._officerId"
+          >Officer with id number: {{ singleCase._officerId }}</span
+        >
+      </p>
+      <p>
+        Stolen on {{ singleCase.theft_date }}, at the
+        {{ singleCase.theft_location }}
+      </p>
+      <p>Bike type: {{ singleCase.bike_type }}</p>
+      <p>Bike Description: {{ singleCase.bike_description }}</p>
+      <p>Theft Description: {{ singleCase.theft_description }}</p>
+      <b-button
+        v-if="singleCase.status === 'In Progress'"
+        class="btn btn-success col-3"
+        @click="resolveCase(singleCase._id)"
+      >
+        Resolve
+      </b-button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'SingleCase',
+  data() {
+    return {
+      singleCase: {},
+      caseDetails: {},
+      caseLoading: false,
+    }
+  },
+  created() {
+    this.getCase()
+  },
+  methods: {
+    async getCase() {
+      this.caseLoading = true
+      try {
+        const data = await this.$axios.$get(
+          `${process.env.BASE_URL}/api/cases/${this.$route.params.id}`
+        )
+        const response = data.singleCase
+        this.singleCase = response
+        this.caseDetails = response
+      } catch (error) {
+        this.$swal(
+          'Error',
+          'Something went wrong while fetching case.',
+          'error'
+        )
+        this.error = error
+      }
+      this.caseLoading = false
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped></style>
