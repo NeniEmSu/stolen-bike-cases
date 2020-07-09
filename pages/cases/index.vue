@@ -201,26 +201,6 @@ export default {
   },
   methods: {
     ...mapActions('cases', ['getAllCases']),
-    async getCases() {
-      const config = {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      }
-      this.loading = true
-      try {
-        const data = await this.$axios.$get(
-          `${process.env.BASE_URL}/api/cases`,
-          config
-        )
-        const response = await data.cases
-        this.cases = response
-        this.loading = false
-      } catch (error) {
-        this.loading = false
-        this.$swal('Error', error.response.data.error, 'error')
-      }
-    },
     async resolveCase(id) {
       const config = {
         headers: {
