@@ -20,11 +20,20 @@ Github, Bitbucket...).
 - [x] When the Police find a bike, the case is marked as resolved and the responsible police officer becomes available to take a new stolen bike case.
 - [x] The system should be able to assign unassigned stolen bike cases automatically when a police officer becomes available.
 
+### Extras
+
+- [x] When a bike is deleted reasign the officer who was on the case assuming case was active prior to deleting the case else set the officer to available.
+- [x] When an officer is deleted reasign another officer to the case he was handling assuming the case was active and an officer is available else set the case to pending.
+- [ ] Implement authorization and authentication
+- [ ] Add officers notes so the officer can comment on his progress on the case.
+- [ ] Show number of completed cases by an officer on his profile
+- [ ] Add officer ranking for so an officer is given a 5 point rating at the end of each case which is aggregated and displayed on his profile.
+
 ## Your Mission
 
 Your task is to provide APIs for a frontend application that satisfies all requirements above.
 
-Please stick to the Product Requirements. You should not implement authorization and authentication, as they are not important for the assessment. Assume everyone can make requests to any API.
+> Note: Please stick to the Product Requirements. You should not implement authorization and authentication, as they are not important for the assessment. Assume everyone can make requests to any API. Only implement it when you have successfully completed all Product Requirements.
 
 ## Tech Requirements
 
@@ -69,7 +78,8 @@ When you’re done, host it somewhere (e.g. on Amazon EC2, Heroku, Google AppEng
 7. SCSS
 8. Jest
 9. Eslint
-10.Bootstrap Icon
+10. Bootstrap Icon
+11. Vuelidate
 
 ### The stack on the BackEnd is based on
 
@@ -97,6 +107,7 @@ Backend
 - [x] Find and assign the oldest case to new officers
 - [x] Create service for auto assignment
 - [x] Create officers routes, model and controllers
+- [ ] sanitize user imput
 - [ ] Req.body validation with @hapi/joi
 - [x] Create cases routes, model and controllers
 - [x] Set up express api, cors, proxy settings and basics
@@ -104,7 +115,7 @@ Backend
 Frontend
 
 - [ ] Frontend Testing
-- [ ] add full PWA support
+- [x] add full PWA support
 - [ ] generate routes
 - [ ] set up proper seo
 - [ ] add robots.txt
@@ -112,6 +123,7 @@ Frontend
 - [ ] UX/UI logic refactor
 - [ ] add Skeleton loaders
 - [ ] animated transition
+- [ ] form validation with vuelidate
 - [x] state management init
 - [ ] add readme documentation for all major directories
 - [X] setup readme for documentation
