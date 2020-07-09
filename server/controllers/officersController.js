@@ -52,6 +52,19 @@ exports.getAllOfficers = async (req, res) => {
   }
 }
 
+exports.getOfficer = async (req, res) => {
+  try {
+    const id = req.params.officerId
+    const officer = await Officer.findOne({ _id: id })
+    res.status(200).json({
+      type: 'success',
+      officer,
+    })
+  } catch (error) {
+    res.status(500).json({ type: 'error', error })
+  }
+}
+
 exports.deleteOfficer = async (req, res) => {
   try {
     const id = req.params.officerId
