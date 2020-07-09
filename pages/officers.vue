@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -56,14 +57,16 @@ export default {
       officerDetails: {
         name: null,
       },
-      loading: false,
-      officers: [],
     }
   },
+  computed: {
+    ...mapState('officers', ['officers', 'loading', 'errors']),
+  },
   created() {
-    this.getOfficers()
+    this.getAllOfficers()
   },
   methods: {
+    ...mapActions('officers', ['getAllOfficers']),
     async addOfficer() {
       const config = {
         headers: {
@@ -80,33 +83,13 @@ export default {
           )
           .then((response) => {
             this.$swal('Success', `${response.message}`, 'success')
-            this.getOfficers()
+            this.getAllOfficers()
             this.officerDetails.name = null
           })
       } catch (error) {
         this.$swal('Error', `Something Went wrong, ${error.message}`, 'error')
       }
       this.addLoading = false
-    },
-    async getOfficers() {
-      const config = {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      }
-      this.loading = true
-      try {
-        const data = await this.$axios.$get(
-          `${process.env.BASE_URL}/api/officers`,
-          config
-        )
-        const response = await data.officers
-        this.officers = response
-        this.loading = false
-      } catch (error) {
-        this.loading = false
-        this.$swal('Error', error.message, 'error')
-      }
     },
   },
 }
