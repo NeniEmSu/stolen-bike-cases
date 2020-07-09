@@ -143,6 +143,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { required, minLength } from 'vuelidate/lib/validators'
 export default {
   data() {
@@ -169,6 +170,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions('cases', ['getAllCases']),
     initForm() {
       this.showForm = !this.showForm
     },
@@ -183,6 +185,7 @@ export default {
         await this.$axios
           .$post(`${process.env.BASE_URL}/api/cases`, this.caseDetails, config)
           .then((response) => {
+            this.getAllCases()
             this.$swal(
               'Success',
               `Your report was mad successfully it has either been asigned to and available officer or will be once an officeer is available.`,

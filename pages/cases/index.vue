@@ -124,6 +124,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import AddCase from '@/components/AddCase'
 export default {
   name: 'Cases',
@@ -132,9 +133,9 @@ export default {
   },
   data() {
     return {
-      loading: false,
+      // loading: false,
       deleteLoading: false,
-      cases: [],
+      // cases: [],
       sortBy: 'Total',
       sortDesc: true,
       fields: [
@@ -178,6 +179,7 @@ export default {
     }
   },
   computed: {
+    ...mapState('cases', ['cases', 'loading', 'errors']),
     items() {
       return this.cases.map((item, index) => {
         return {
@@ -195,9 +197,10 @@ export default {
     },
   },
   created() {
-    this.getCases()
+    this.getAllCases()
   },
   methods: {
+    ...mapActions('cases', ['getAllCases']),
     async getCases() {
       const config = {
         headers: {
