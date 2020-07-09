@@ -21,7 +21,7 @@ module.exports = {
 
   css: ['sweetalert2/dist/sweetalert2.min.css'],
 
-  plugins: ['~/plugins/bootstrap-vue-icon', '~/plugins/vuelidate.js',],
+  plugins: ['~/plugins/bootstrap-vue-icon', '~/plugins/vuelidate.js'],
 
   buildModules: [
     '@nuxtjs/eslint-module',

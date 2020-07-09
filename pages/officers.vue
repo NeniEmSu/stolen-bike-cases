@@ -15,7 +15,24 @@
     </template>
     <template v-else>
       <div v-for="officer in officers" :key="officer._id">
-        <h5>{{ officer.name }}</h5>
+        <div class="row">
+          <h5 class="col-sm-11">{{ officer.name }}</h5>
+          <div class="col-sm-1 ml-auto">
+            <b-button
+              class="mx-auto"
+              variant="light"
+              @click="deleteOfficer(officer._id)"
+            >
+              <b-icon
+                icon="trash-fill"
+                color="danger"
+                variant="danger"
+                font-scale="1.5"
+              ></b-icon>
+            </b-button>
+          </div>
+        </div>
+
         <p v-if="officer._caseId">
           Is on the Case with the Id: {{ officer._caseId }}
         </p>
@@ -90,6 +107,46 @@ export default {
         this.$swal('Error', `Something Went wrong, ${error.message}`, 'error')
       }
       this.addLoading = false
+    },
+    deleteOfficer(id) {
+      const config = {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }
+      this.deleteLoading = true
+      this.$swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((willDelete) => {
+        if (willDelete.value) {
+          this.$axios
+            .$delete(`${process.env.BASE_URL}/api/officers/${id}`, config)
+            .then((response) => {
+              this.getAllOfficers()
+              this.$swal({
+                text: "Poof! You've sucessfully deleted that officer!",
+                icon: 'success',
+              })
+            })
+            .catch((error) => {
+              this.deleteLoading = false
+              this.$swal(
+                'Error',
+                `Somethimg went wrong, Error: ${error}`,
+                'error'
+              )
+            })
+        } else {
+          this.deleteLoading = false
+          this.$swal('The Officers detail is safe!')
+        }
+      })
     },
   },
 }
