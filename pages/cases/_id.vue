@@ -17,14 +17,14 @@
         {{ singleCase.status }}
         <span v-if="singleCase.status !== 'pending'">by</span>
         <span v-if="singleCase._officerId"
-          >Officer with id number: {{ singleCase._officerId }}</span
+          >Officer: {{ officerDetails.name }}</span
         >
       </p>
       <p>
         Stolen on {{ singleCase.theft_date }}, at the
         {{ singleCase.theft_location }}
       </p>
-      <p>Bike type: {{ singleCase.bike_type }}</p>
+      <p>Bike type: {{ singleCase.type }}</p>
       <p>Bike Description: {{ singleCase.bike_description }}</p>
       <p>Theft Description: {{ singleCase.theft_description }}</p>
       <b-button
@@ -43,6 +43,7 @@ export default {
   name: 'SingleCase',
   data() {
     return {
+      officerDetails: {},
       singleCase: {},
       caseDetails: {},
       caseLoading: false,
@@ -61,6 +62,7 @@ export default {
         const response = data.singleCase
         this.singleCase = response
         this.caseDetails = response
+        await this.getOfficer()
       } catch (error) {
         this.$swal(
           'Error',
@@ -70,6 +72,22 @@ export default {
         this.error = error
       }
       this.caseLoading = false
+    },
+    async getOfficer() {
+      try {
+        const data = await this.$axios.$get(
+          `${process.env.BASE_URL}/api/officers/${this.singleCase._officerId}`
+        )
+        const response = data.officer
+        this.officerDetails = response
+      } catch (error) {
+        this.$swal(
+          'Error',
+          'Something went wrong while fetching officer details.',
+          'error'
+        )
+        this.error = error
+      }
     },
   },
 }
