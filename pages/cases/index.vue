@@ -38,15 +38,19 @@
             </b-th>
           </b-tr>
         </template>
-        <!-- <template v-slot:cell(username)="data">
+        <template v-slot:cell(owners_name)="data">
           <nuxt-link
             :to="{
-              name: 'users-id-username',
-              params: { id: data.item.id, username: data.item.username },
+              name: 'cases-id',
+              params: { id: data.item.id },
             }"
-            >{{ data.item.username }}</nuxt-link
+            >{{ data.item.owners_name }}</nuxt-link
           >
-        </template> -->
+        </template>
+        <template v-slot:cell(_officerId)="data">
+          <p v-if="data.item._officerId">Assigned</p>
+          <p v-else>Unassigned</p>
+        </template>
         <template v-slot:cell(view)="data">
           <b-button
             class="ml-auto"
@@ -143,7 +147,7 @@ export default {
         },
         {
           key: '_officerId',
-          label: 'Officer',
+          label: 'Officer Status',
           sortable: false,
         },
         {
